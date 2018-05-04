@@ -1,0 +1,18 @@
+python manage.py runserver
+
+admin kullanýcý adý enessu þifre django2018cpp
+DjangoIkinci\static\css\style.css içinde 1258. satir sonrasi disaridan eklendi.
+#centeredDiv {
+  margin-right: auto; margin-left: auto; width: 800px;
+}
+
+
+userpreference_list.html template i içinde   
+<a href="userpreference_add">Add person</a>
+Reverse for userpreference_add not found. No reverse...
+hatasý için çözüm: <a href="{% url 'cpp:userpreference_add' %}">Add person</a>
+cpp app adý, userpreference_add url name i.
+
+Tracking için kullanýlacaklar:
+user_name = request.user.id
+user = User.objects.filter(id=user_id)
