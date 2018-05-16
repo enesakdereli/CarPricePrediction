@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}Car Price Prediction{% endblock %}
+{% block content %}
+    <button class="btn btn-show-details" data-id="">More Info</button>
+    <div class="" id="hidden" style="display:none">
+        <p>test hide and show more details</p>
+        <p>asdasda hide and show more details</p>
+    </div>
+    <h2>Car Price Prediction</h2>
+    {{ user.user_name }}
+    <form method="post" id="pricePredictionForm" data-load-url="{% url 'cpp:ajax_load_dropdown' %}" novalidate>
+        {% csrf_token %}
+
+
+        <div id="main-input">
+            {% for field in form %}
+                {% if forloop.counter < 4 %}
+                    {{ field.label_tag }}
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div id="detail-input">
+            {% for field in form %}
+                {% if forloop.counter >= 4 %}
+                    {{ field.label_tag }}
+                {% endif %}
+            {% endfor %}
+        </div>
+
+
+
+        <button type="submit">Predict</button>
+        <a href="{% url 'cpp:cpp_home' %}">Main Menu</a>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $("#id_brand").change(function () {
+            var url = $("#pricePredictionForm").attr("data-load-url");
+            var brandId = $(this).val();
+            $.ajax({
+                url: url,
+                data: {
+                    'brand': brandId
+                },
+                success: function (data) {
+                    console.log(data);
+                    $("#id_series").html(data);
+                }
+            });
+        });
+
+        $("#id_series").change(function () {
+            var url = $("#pricePredictionForm").attr("data-load-url");
+            var seriesId = $(this).val();
+            $.ajax({
+                url: url,
+                data: {
+                    'series': seriesId
+                },
+                success: function (data) {
+                    console.log(data);
+                    $("#id_model").html(data);
+                }
+            });
+
+        });
+        $('.btn-show-details').click(function (e) {
+            var id = $(e.currentTarget).data('id');
+            console.log(id);
+            $('#detail-input').toggle();
+        });
+    </script>
+
+{% endblock %}
