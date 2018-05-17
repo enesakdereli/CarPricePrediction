@@ -23,9 +23,9 @@ class PricePredictionForm(forms.ModelForm):
 
         self.fields['series'].queryset = Series.objects.none()
         self.fields['model'].queryset = Model.objects.none()
-        hidden_fields = ['exchange_status','color']
+        """hidden_fields = ['case_type','owner_type','exchange_status','color']
         for i in hidden_fields:
-            self.fields[i].widget = forms.HiddenInput(attrs = { 'id' : 'hidden'})
+            self.fields[i].widget = forms.HiddenInput(attrs = { 'id' : 'hidden'})"""
         if 'brand' in self.data:
             try:
                 brand_id = int(self.data.get('brand'))
