@@ -1,18 +1,22 @@
 from django.shortcuts import render, redirect
-from .models import Brand, UserPreference, Series, Model,User
+from .models import Brand, CarProperties, Series, Model,User
 from django.contrib.auth import authenticate, login
 from django.views.generic import View
 from django.contrib.auth.decorators import login_required
-from .forms import SignUpForm, UserPreferenceForm
+from .forms import SignUpForm, PricePredictionForm
 from django.views.generic import ListView, CreateView, UpdateView
 from django.urls import reverse_lazy
-
+from sklearn.externals import joblib
 
 @login_required
 def home(request):
     return render(request, 'home.html')
+
+
 def cpp_home(request):
     return render(request, 'cpp/home.html')
+
+
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -32,33 +36,43 @@ def index(request):
     return render(request, 'base.html')
 
 
-class UserPreferenceListView(ListView):
-    model = UserPreference
-    context_object_name = 'userpreferences'
-
-
-class UserPreferenceCreateView(CreateView):
-    model = UserPreference
-    form_class = UserPreferenceForm
-    success_url = reverse_lazy('cpp:userpreference_changelist')
-
-
-class UserPreferenceUpdateView(UpdateView):
-    model = UserPreference
-    form_class = UserPreferenceForm
-    success_url = reverse_lazy('cpp:userpreference_changelist')
+def get_prediction(request):
+    # TODO: Get the car data and predic its price
+    # fields = ('brand', 'series', 'model', 'year', 'power', 'fuel_type', 'gear_type', 'case_type', 'owner_type',
+    #           'exchange_status', 'color')
+    clf = joblib.load('forest.pkl')
+    
+    request.GET.get('brand')
+    return render(request, 'cpp/prediction.html')
 
 
 def load_dropdown(request):
     brand_id = request.GET.get('brand')
     series_id = request.GET.get('series')
-    #user_id = request.GET.get('user').index()
-    #user_id = request.user.id
+    # user_id = request.GET.get('user').index()
+    # user_id = request.user.id
     series = Series.objects.filter(brand_id=brand_id).order_by('series_name')
     models = Model.objects.filter(series_id=series_id).order_by('model_name')
-    #user = User.objects.filter(id=user_id)
+    # user = User.objects.filter(id=user_id)
 
-    return render(request, 'cpp/dropdown_list_options.html', {'series': series, 'models':models})
+    return render(request, 'cpp/dropdown_list_options.html', {'series': series, 'models': models})
+
+
+class PricePredictionListView(ListView):
+    model = CarProperties
+    context_object_name = 'userpreferences'
+
+
+class PricePredictionCreateView(CreateView):
+    model = CarProperties
+    form_class = PricePredictionForm
+    success_url = reverse_lazy('cpp:price_prediction_changelist')
+
+
+class PricePredictionUpdateView(UpdateView):
+    model = CarProperties
+    form_class = PricePredictionForm
+    success_url = reverse_lazy('cpp:price_prediction_changelist')
 
 
 class UserFormView(View):

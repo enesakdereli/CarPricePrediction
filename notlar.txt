@@ -16,3 +16,5 @@ cpp app adý, userpreference_add url name i.
 Tracking için kullanýlacaklar:
 user_name = request.user.id
 user = User.objects.filter(id=user_id)
+
+deneme
