@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import CarProperties, Brand, Model, Series
 from django.forms import ModelForm
 from django.core import serializers
+import inspect
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
 
@@ -15,18 +16,9 @@ class SignUpForm(UserCreationForm):
 class PricePredictionForm(ModelForm):
     class Meta:
         model = CarProperties
-
-        #fields = CarProperties._meta.get_fields()
-        #fields = serializers.serialize("python", model.objects.all())
-        #fiedls_names=model._meta.
-        """attrs = vars(CarProperties)
-        flds = []
-        for i in attrs:
-            flds.append(i)
-        print(flds)"""
-        #print(', '.join("%s: %s" % item for item in attrs.items()))
-        fields = ('brand', 'series', 'model', 'year', 'power', 'fuel_type', 'gear_type', 'case_type', 'owner_type','exchange_status', 'color','abc','abs')
-        #print(fields)
+        fields=[f.name for f in model._meta.get_fields()][1:]#[] or [1:] ?
+        print(fields)
+        #fields = ('brand', 'series', 'model', 'year', 'power', 'fuel_type', 'gear_type', 'case_type', 'owner_type','exchange_status', 'color','abc','abs')
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

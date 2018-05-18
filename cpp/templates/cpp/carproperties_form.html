@@ -22,10 +22,23 @@
                             <br>
                             {{ field.label_tag }}
                             {{ field }}
-                        {% elif forloop.counter0 > 6 %}
+                        {% elif forloop.counter0 > 6 and forloop.counter0 < 12 %}
                             {{ field.label_tag }}
                             {{ field }}
+                        {% elif forloop.counter0 == 12%}
+                            <ul>
+                                <li>
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                </li>
+                        {% elif forloop.counter0 > 12%}
+                            <li>
+                                {{ field.label_tag }}
+                                {{ field }}
+                            </li>
+
                         {% endif %}
+                            </ul>
                     {% endfor %}
         </div>
         <button type="button" class="btn btn-show-details" data-id="">More Details</button>
