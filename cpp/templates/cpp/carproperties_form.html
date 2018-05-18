@@ -7,7 +7,7 @@
         {% csrf_token %}
         <div id="main-input">
                     {% for field in form %}
-                        <!--{{ forloop.counter0 }} -->
+                        <!--{{ forloop.counter0 }}-->
                         {% if forloop.counter0 < 3%}
                             {{ field.label_tag }}
                             {{ field }}
@@ -22,7 +22,14 @@
                             <br>
                             {{ field.label_tag }}
                             {{ field }}
-                        {% elif forloop.counter0 > 6 and forloop.counter0 < 12 %}
+                        {% elif forloop.counter0 > 6 and forloop.counter0 < 9 %}
+                            {{ field.label_tag }}
+                            {{ field }}
+                        {% elif forloop.counter0 == 9%}
+                            <br>
+                            {{ field.label_tag }}
+                            {{ field }}
+                        {% elif forloop.counter0 > 9 and forloop.counter0 < 12 %}
                             {{ field.label_tag }}
                             {{ field }}
                     {% endif %}
@@ -31,21 +38,21 @@
         <button type="button" class="btn btn-show-details" data-id="">More Details</button>
         <br>
         <div hidden id="detail-input">
-            {% for field in form %}
-                {% if forloop.counter0 == 12%}
-                            <ul>
-                                <li>
-                                    {{ field.label_tag }}
-                                    {{ field }}
-                                </li>
-                        {% elif forloop.counter0 > 12%}
-                            <li>
-                                {{ field.label_tag }}
-                                {{ field }}
-                            </li>
-                        {% endif %}
-                            </ul>
-            {% endfor %}
+            <ul>
+                {% for field in form %}
+                    {% if forloop.counter0 == 12%}
+                        <li>
+                            {{ field.label_tag }}
+                            {{ field }}
+                        </li>
+                    {% elif forloop.counter0 > 12%}
+                        <li>
+                            {{ field.label_tag }}
+                            {{ field }}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
         </div>
         <button type="submit">Predict</button>
         <a href="{% url 'cpp:cpp_home' %}">Main Menu</a>

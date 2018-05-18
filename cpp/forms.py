@@ -16,7 +16,7 @@ class SignUpForm(UserCreationForm):
 class PricePredictionForm(ModelForm):
     class Meta:
         model = CarProperties
-        fields=[f.name for f in model._meta.get_fields()][1:]#[] or [1:] ?
+        fields=[f.name for f in model._meta.get_fields()][1:]#or [1:] ?
         print(fields)
         #fields = ('brand', 'series', 'model', 'year', 'power', 'fuel_type', 'gear_type', 'case_type', 'owner_type','exchange_status', 'color','abc','abs')
     def __init__(self, *args, **kwargs):
