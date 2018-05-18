@@ -2,8 +2,8 @@ from django.contrib.auth.models import User
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import CarProperties, Brand, Model, Series
-
-
+from django.forms import ModelForm
+from django.core import serializers
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
 
@@ -12,12 +12,21 @@ class SignUpForm(UserCreationForm):
         fields = ('username', 'email', 'password1', 'password2', )
 
 
-class PricePredictionForm(forms.ModelForm):
+class PricePredictionForm(ModelForm):
     class Meta:
         model = CarProperties
-        fields = ('brand', 'series', 'model', 'year', 'power', 'fuel_type', 'gear_type', 'case_type', 'owner_type',
-                  'exchange_status', 'color')
 
+        #fields = CarProperties._meta.get_fields()
+        #fields = serializers.serialize("python", model.objects.all())
+        #fiedls_names=model._meta.
+        """attrs = vars(CarProperties)
+        flds = []
+        for i in attrs:
+            flds.append(i)
+        print(flds)"""
+        #print(', '.join("%s: %s" % item for item in attrs.items()))
+        fields = ('brand', 'series', 'model', 'year', 'power', 'fuel_type', 'gear_type', 'case_type', 'owner_type','exchange_status', 'color','abc','abs')
+        #print(fields)
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
