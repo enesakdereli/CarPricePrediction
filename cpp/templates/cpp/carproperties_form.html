@@ -25,7 +25,14 @@
                         {% elif forloop.counter0 > 6 and forloop.counter0 < 12 %}
                             {{ field.label_tag }}
                             {{ field }}
-                        {% elif forloop.counter0 == 12%}
+                    {% endif %}
+                    {% endfor %}
+        </div>
+        <button type="button" class="btn btn-show-details" data-id="">More Details</button>
+        <br>
+        <div hidden id="detail-input">
+            {% for field in form %}
+                {% if forloop.counter0 == 12%}
                             <ul>
                                 <li>
                                     {{ field.label_tag }}
@@ -36,19 +43,8 @@
                                 {{ field.label_tag }}
                                 {{ field }}
                             </li>
-
                         {% endif %}
                             </ul>
-                    {% endfor %}
-        </div>
-        <button type="button" class="btn btn-show-details" data-id="">More Details</button>
-        <br>
-        <div hidden id="detail-input">
-            {% for field in form %}
-                {% if forloop.counter >= 8 %}
-                    {{ field.label_tag }}
-                    {{ field }}
-                {% endif %}
             {% endfor %}
         </div>
         <button type="submit">Predict</button>
