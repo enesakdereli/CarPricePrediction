@@ -54,6 +54,7 @@
                 {% endfor %}
             </ul>
         </div>
+    {{ form.as_ }}
         <button type="submit">Predict</button>
         <a href="{% url 'cpp:cpp_home' %}">Main Menu</a>
     </form>
