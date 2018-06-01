@@ -143,20 +143,20 @@ class RepairStatus(models.Model):
 
 
 class CarProperties(models.Model):
-    brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=False)
-    series = models.ForeignKey(Series, on_delete=models.SET_NULL, null=False)
-    model = models.ForeignKey(Model, on_delete=models.SET_NULL, null=False)
+    brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True)
+    series = models.ForeignKey(Series, on_delete=models.SET_NULL, null=True)
+    model = models.ForeignKey(Model, on_delete=models.SET_NULL, null=True)
 
     #Car Properties
     year = models.IntegerField(null=False)
     power = models.IntegerField(null=False)
-    fuel_type = models.ForeignKey(FuelType, on_delete=models.SET_NULL, null=False)
-    gear_type = models.ForeignKey(GearType, on_delete=models.SET_NULL, null=False)
-    case_type = models.ForeignKey(CaseType, on_delete=models.SET_NULL, null=False)
-    owner_type = models.ForeignKey(OwnerType, on_delete=models.SET_NULL, null=False)
-    exchange_status = models.ForeignKey(ExchangeStatus, on_delete=models.SET_NULL, null=False)
-    color = models.ForeignKey(Color, on_delete=models.SET_NULL, null=False)
-    repair_status = models.ForeignKey(RepairStatus, on_delete=models.SET_NULL, null=False)
+    fuel_type = models.ForeignKey(FuelType, on_delete=models.SET_NULL, null=True)
+    gear_type = models.ForeignKey(GearType, on_delete=models.SET_NULL, null=True)
+    case_type = models.ForeignKey(CaseType, on_delete=models.SET_NULL, null=True)
+    owner_type = models.ForeignKey(OwnerType, on_delete=models.SET_NULL, null=True)
+    exchange_status = models.ForeignKey(ExchangeStatus, on_delete=models.SET_NULL, null=True)
+    color = models.ForeignKey(Color, on_delete=models.SET_NULL, null=True)
+    repair_status = models.ForeignKey(RepairStatus, on_delete=models.SET_NULL, null=True)
     #Detail inputs
     #Security
     abc = models.IntegerField(null=False,default=0)
