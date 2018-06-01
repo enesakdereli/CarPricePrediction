@@ -186,3 +186,7 @@ media
 
 
 # End of https://www.gitignore.io/api/django
+.idea/misc.xml
+.idea/CarPricePrediction.iml
+.idea/misc.xml
+.idea/CarPricePrediction.iml
