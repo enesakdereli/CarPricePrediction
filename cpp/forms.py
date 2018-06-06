@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import CarProperties, Brand, Model, Series
+from .models import CarProperty, Brand, Model, Series
 from django.forms import ModelForm, RadioSelect
 from django.core import serializers
 import inspect
@@ -17,12 +17,12 @@ class PricePredictionForm(ModelForm):
     """gear_type = forms.ChoiceField(choices=GEAR_CHOICES)
     fuel_type = forms.ChoiceField(choices=FUEL_CHOICES)"""
     class Meta:
-        model = CarProperties
+        model = CarProperty
         fields=[f.name for f in model._meta.get_fields()][1:]#all or [1:] ?
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        radio_fields = [f.name for f in CarProperties._meta.get_fields()][13:]
+        radio_fields = [f.name for f in CarProperty._meta.get_fields()][13:]
 
         """
         CAR_DETAIL_CHOICES = [(0, 'Unavailable'), (1, 'Available'), (2, 'Unimportant')]

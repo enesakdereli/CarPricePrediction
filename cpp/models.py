@@ -140,7 +140,7 @@ class RepairStatus(models.Model):
 '''
 
 
-class CarProperties(models.Model):
+class CarProperty(models.Model):
     CAR_DETAIL_CHOICES = [(0, 'Unavailable'), (1, 'Available'), (2, 'Unimportant')]
     FUEL_TYPE_CHOICES = [(0, 'Gasoline'), (1, 'Diesel'), (2, 'Electricity'), (3, 'Hybrid')]
     GEAR_TYPE_CHOICES = [(0, 'Manual'), (1, 'Automatic'), (2, 'Semi-automatic')]
@@ -275,7 +275,7 @@ class CarProperties(models.Model):
 
 class UserPreference(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
-    car_properties = models.ForeignKey(CarProperties, on_delete=models.CASCADE, null=False)
+    car_properties = models.ForeignKey(CarProperty, on_delete=models.CASCADE, null=False)
     percentage = models.IntegerField()
     date_start = models.DateField(default=date.today, null=False)
     finish = date.today().replace(month=date.today().month + 2)

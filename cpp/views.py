@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Brand, CarProperties, Series, Model, User, UserPreference
+from .models import Brand, CarProperty, Series, Model, User, UserPreference
 from django.contrib.auth import authenticate, login
 from django.views.generic import View
 from django.contrib.auth.decorators import login_required
@@ -59,18 +59,18 @@ def load_dropdown(request):
 
 
 class PricePredictionListView(ListView):
-    model = CarProperties
+    model = CarProperty
     context_object_name = 'userpreferences'
 
 
 class PricePredictionCreateView(CreateView):
-    model = CarProperties
+    model = CarProperty
     form_class = PricePredictionForm
     success_url = reverse_lazy('cpp:price_prediction_changelist')
 
 
 class PricePredictionUpdateView(UpdateView):
-    model = CarProperties
+    model = CarProperty
     form_class = PricePredictionForm
     success_url = reverse_lazy('cpp:price_prediction_changelist')
 
@@ -90,7 +90,7 @@ class PriceTrackingCreateView(CreateView):
     success_url = reverse_lazy('cpp:price_tracking_changelist')
 
 class PriceTrackingUpdateView(UpdateView):
-    model = CarProperties
+    model = CarProperty
     form_class = PricePredictionForm
     success_url = reverse_lazy('cpp:price_tracking_changelist')
 
