@@ -1266,8 +1266,8 @@ table {
 }
 
 td, th {
-    border-left:solid #FF5126 1px;
     border-top:solid #FF5126 1px;
+	
 	color: #7f7f7f;
 }
 
@@ -1285,12 +1285,20 @@ th, td {
 	padding-bottom: 5px;
 	padding-left: 10px;
 }
-a.solid{
-	border-style: solid;
-	padding: 5px;
-	border-radius:5px;
-    -moz-border-radius:6px;
-	font-weight: bold;
+a.solid-orange{
+	background-color:#FF5126;
+	-moz-border-radius:28px;
+	-webkit-border-radius:28px;
+	border-radius:28px;
+	border:1px solid #FF5126;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:2px 15px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #FF5126;
 	}
 a.solid-gray{
 	background-color:#7f7f7f;
@@ -1316,7 +1324,7 @@ button.solid{
 	color:#FF5126;
 	border-color: #FF5126;
 }
-.myButton {
+.orangeOval {
 	background-color:#FF5126;
 	-moz-border-radius:28px;
 	-webkit-border-radius:28px;
@@ -1331,15 +1339,16 @@ button.solid{
 	text-decoration:none;
 	text-shadow:0px 1px 0px #FF5126;
 }
-.myButton:hover {
+.orangeOval:hover {
 	background-color:#f73008;
+	
 }
-.myButton:active {
+.orangeOval:active {
 	position:relative;
 	top:1px;
+	
 }
 button.btn-show-details{
 	background-color:#7f7f7f;
 	color:#ffffff;
-	
 }

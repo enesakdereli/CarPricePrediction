@@ -5,21 +5,33 @@
 <table>
     <thead>
           <tr>
-          <th>Market Percentage</th>
-            <th>Start Date</th>
-            <th>End Date</th>
+              <th>Brand</th>
+              <th>Series</th>
+              <th>Model</th>
+              <th>Location</th>
+              <th>Year</th>
+              <th>Market Percentage</th>
+              <th>Start Date</th>
+              <th>End Date</th>
           </tr>
     </thead>
     <tbody>
     {% for userpreference in userpreferences %}
         <tr>
+            <td>{{ userpreference.brand }}</td>
+            <td>{{ userpreference.series}}</td>
+            <td>{{ userpreference.model}}</td>
+            <td>{{ userpreference.location }}</td>
+            <td>{{ userpreference.year }}</td>
             <td>{{ userpreference.percentage }}</td>
             <td>{{ userpreference.date_start }}</td>
             <td>{{ userpreference.date_finish }}</td>
+            <td><a class="solid-gray" href="{% url 'cpp:price_tracking_change' userpreference.id %}" id="{{ userpreference.id }}">Details/Update</a></td>
+            <td><a class="solid-gray" href="{% url 'cpp:price_tracking_delete' userpreference.id %}" id="{{ userpreference.id }}">Delete</a></td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
 <br>
-<a class="solid" href="{% url 'cpp:price_tracking_add' %}">Add Tracking</a>
+<a class="orangeOval" href="{% url 'cpp:price_tracking_add' %}">Add Tracking</a>
 {% endblock %}

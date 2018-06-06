@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="" method="post">{% csrf_token %}
+    <h3>Are you sure you want to delete "{{ object }} tracking"?</h3>
+    <input class="orangeOval" type="submit" value="Confirm" />
+    <a href="{% url 'cpp:price_tracking_changelist' %}" class="solid-gray"> Cancel </a>
+</form>
+{% endblock %}

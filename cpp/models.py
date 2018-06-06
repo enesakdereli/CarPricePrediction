@@ -29,35 +29,43 @@ class Model(models.Model):
 
 class Location(models.Model):
     city = models.CharField(max_length=200)
-
+    def __str__(self):
+        return self.city
 
 class FuelType(models.Model):
-    fuel = models.CharField(max_length=200)
-
+    fuel_type = models.CharField(max_length=200)
+    def __str__(self):
+        return self.fuel
 
 class GearType(models.Model):
-    gear = models.CharField(max_length=200)
-
+    gear_type = models.CharField(max_length=200)
+    def __str__(self):
+        return self.gear
 
 class CaseType(models.Model):
     case_type = models.CharField(max_length=200)
-
+    def __str__(self):
+        return self.case_type
 
 class OwnerType(models.Model):
     owner_type = models.CharField(max_length=100)
-
+    def __str__(self):
+        return self.owner_type
 
 class ExchangeStatus(models.Model):
-    owner_type = models.CharField(max_length=100)
-
+    exchange_status = models.CharField(max_length=100)
+    def __str__(self):
+        return self.exchange_status
 
 class Color(models.Model):
     color = models.CharField(max_length=50)
-
+    def __str__(self):
+        return self.fuel
 
 class RepairStatus(models.Model):
     color = models.CharField(max_length=50)
-
+    def __str__(self):
+        return self.fuel
 '''
 'Fiyat', 
 'Yer', 
@@ -150,11 +158,13 @@ class CarProperty(models.Model):
     COLOR_CHOICES = [(0, 'Black'), (1, 'Beige'),(2, 'Blue'), (3, 'Brown'), (4, 'Claret Red'), (5, 'Champagne'), (6, 'Gray'), (7, 'Green'), (8, 'Navy Blue'), (9, 'Orange'), (10, 'Pink'), (11, 'Purple'), (12, 'Red'), (13, 'Silver Gray'), (14, 'Smoke'), (15, 'Turquoise'), (16, 'White'), (17, 'Yellow')]
     REPAIR_STATUS_CHOICES = [(0, 'Undamaged'), (1, 'Damage Recorded'), (2, 'Heavy Damage Recorded')]
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
+
+    #Main input fields
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True)
     series = models.ForeignKey(Series, on_delete=models.SET_NULL, null=True)
     model = models.ForeignKey(Model, on_delete=models.SET_NULL, null=True)
-
-    #Car Properties
+    location = models.ForeignKey(Location, on_delete=models.SET_NULL, null= True)
     year = models.IntegerField(null=False)
     power = models.IntegerField(null=False)
     fuel_type = models.IntegerField(null=False, default=0, choices=FUEL_TYPE_CHOICES)
@@ -164,7 +174,13 @@ class CarProperty(models.Model):
     exchange_status = models.IntegerField(null=False, default=0, choices=EXCHANGE_STATUS_CHOICES)
     color = models.IntegerField(null=False, default=0, choices=COLOR_CHOICES)
     repair_status = models.IntegerField(null=False, default=0, choices=REPAIR_STATUS_CHOICES)
-    #Detail inputs
+
+    date_start = models.DateField(default=date.today, null=False)
+    finish = date.today().replace(month=date.today().month + 2)
+    date_finish = models.DateField(null=False, default=finish)  # default may be 2 months
+    percentage = models.IntegerField(default=10, null=False)
+
+    #Detail input fields
     #Security
     abc = models.IntegerField(null=False,default=2, choices=CAR_DETAIL_CHOICES)
     abs = models.IntegerField(null=False,default=2, choices=CAR_DETAIL_CHOICES)
@@ -271,7 +287,7 @@ class CarProperty(models.Model):
     dvd_changer = models.IntegerField(null=False,default=2, choices=CAR_DETAIL_CHOICES)
 
     def __str__(self):
-        return str(self.brand) + " - " + str(self.series)
+        return str(self.brand) + " - " + str(self.series) + " - " + str(self.model)
 
 class UserPreference(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)

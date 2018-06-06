@@ -1,12 +1,14 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Brand, CarProperty, Series, Model, User, UserPreference
 from django.contrib.auth import authenticate, login
 from django.views.generic import View
 from django.contrib.auth.decorators import login_required
-from .forms import SignUpForm, PricePredictionForm
+from django.utils.decorators import method_decorator
+from .forms import SignUpForm, PricePredictionForm, PriceTrackingForm
 from django.views.generic import ListView, CreateView, UpdateView
 from django.urls import reverse_lazy
 from sklearn.externals import joblib
+from django.views.generic.edit import DeleteView
 
 @login_required
 def home(request):
@@ -31,6 +33,21 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
 
+def add_tracking(request):
+    if request.method == 'POST':
+        form = PricePredictionForm(request.POST)
+        if __name__ == '__main__':
+            post = request.POST.copy()
+            post['user'] = request.user.id
+        if form.is_valid():
+            form.save()
+            return redirect('cpp:price_tracking_changelist')
+    else:
+        form = PricePredictionForm()
+    return render(request, 'cpp/pricetracking_form.html', {'form': form})
+
+def delete_tracking(request, carproperty_id):
+    carproperty = CarProperty.objects.filter(id=carproperty_id)#calismazsa first() dene
 
 def index(request):
     return render(request, 'base.html')
@@ -62,7 +79,6 @@ class PricePredictionListView(ListView):
     model = CarProperty
     context_object_name = 'userpreferences'
 
-
 class PricePredictionCreateView(CreateView):
     model = CarProperty
     form_class = PricePredictionForm
@@ -75,23 +91,42 @@ class PricePredictionUpdateView(UpdateView):
     success_url = reverse_lazy('cpp:price_prediction_changelist')
 
 class PriceTrackingListView(ListView):
-    model = UserPreference
-    queryset = UserPreference.objects.all()#example: .filter(percentage=10)
+    model = CarProperty
+    #queryset = CarProperty.objects.filter()#example: .filter(percentage=10)
     context_object_name = 'userpreferences'
     template_name = 'cpp/pricetracking_list.html'
     """def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['userpreference_list'] = UserPreference.objects.filter(percentage=10)
         return context"""
+    def get_queryset(self):
+        result = super(PriceTrackingListView, self).get_queryset()
+        user_id = self.request.user.id
+        if user_id:
+            result = CarProperty.objects.filter(user_id = user_id)
+            print(result)
+        return result
 class PriceTrackingCreateView(CreateView):
-    model = UserPreference
-    form_class = PricePredictionForm
+    model = CarProperty
+    form_class = PriceTrackingForm
     template_name = 'cpp/pricetracking_form.html'
     success_url = reverse_lazy('cpp:price_tracking_changelist')
 
 class PriceTrackingUpdateView(UpdateView):
     model = CarProperty
-    form_class = PricePredictionForm
+    form_class = PriceTrackingForm
+    context_object_name = 'userpreferences'
+    template_name = 'cpp/carproperty_update_form.html'
+    success_url = reverse_lazy('cpp:price_tracking_changelist')
+    """def get_queryset(self):
+        result = super(PriceTrackingUpdateView, self).get_queryset()
+        user_id = self.request.user.id
+        self.request.POST.get('button')
+        if user_id:
+            result = CarProperty.objects.filter(id = id,user_id = user_id)
+        return result"""
+class PriceTrackingDelete(DeleteView):
+    model = CarProperty
     success_url = reverse_lazy('cpp:price_tracking_changelist')
 
 class UserFormView(View):
