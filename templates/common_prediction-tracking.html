@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
-{% block title %}Car Price Prediction{% endblock %}
 {% block content %}
-    <h2>Car Price Prediction</h2>
+    <h2>{% block h2%}{% endblock %}</h2>
     {{ user.user_name }}
     <form method="post" id="pricePredictionForm" data-load-url="{% url 'cpp:ajax_load_dropdown' %}" novalidate>
         {% csrf_token %}
@@ -43,11 +42,9 @@
                 </tbody>
             </table>
         </div>
-    <button type="submit">
-    {% block button-text%}
+    {% block button%}
     {% endblock %}
-    </button>
-    <a href="{% url 'cpp:cpp_home' %}">Main Menu</a>
+    <a class="solid-gray" href="{% url 'cpp:cpp_home' %}">Main Menu</a>
     </form>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

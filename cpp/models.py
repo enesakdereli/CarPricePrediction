@@ -142,12 +142,12 @@ class RepairStatus(models.Model):
 
 class CarProperty(models.Model):
     CAR_DETAIL_CHOICES = [(0, 'Unavailable'), (1, 'Available'), (2, 'Unimportant')]
-    FUEL_TYPE_CHOICES = [(0, 'Gasoline'), (1, 'Diesel'), (2, 'Electricity'), (3, 'Hybrid')]
+    FUEL_TYPE_CHOICES = [(0, 'Gasoline'), (1, 'Diesel'),(2, 'Gasoline and LPG'), (3, 'Electricity'), (4, 'Hybrid')]
     GEAR_TYPE_CHOICES = [(0, 'Manual'), (1, 'Automatic'), (2, 'Semi-automatic')]
-    CASE_TYPE_CHOICES = [(0, 'Sedan'), (1, 'Hatchback')]
+    CASE_TYPE_CHOICES = [(0, 'Sedan'), (1, 'Hatchback 3 Doors'), (2, 'Hatchback 5 Doors'),(3, 'Crossover'),(4, 'Roadster'), (4, 'Coupe'), (5, 'Station Wagon'), (6, 'Cabrio'), (7, 'MPV')]
     OWNER_TYPE_CHOICES = [(0, 'By Owner'), (1, 'By Gallery')]
     EXCHANGE_STATUS_CHOICES = [(0, 'Unavaliable'),(1,'Available')]
-    COLOR_CHOICES = [(0, 'White'),(1, 'Black'),(2, 'Blue'), (3, 'Red')]
+    COLOR_CHOICES = [(0, 'Black'), (1, 'Beige'),(2, 'Blue'), (3, 'Brown'), (4, 'Claret Red'), (5, 'Champagne'), (6, 'Gray'), (7, 'Green'), (8, 'Navy Blue'), (9, 'Orange'), (10, 'Pink'), (11, 'Purple'), (12, 'Red'), (13, 'Silver Gray'), (14, 'Smoke'), (15, 'Turquoise'), (16, 'White'), (17, 'Yellow')]
     REPAIR_STATUS_CHOICES = [(0, 'Undamaged'), (1, 'Damage Recorded'), (2, 'Heavy Damage Recorded')]
 
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True)

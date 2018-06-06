@@ -18,17 +18,24 @@ c = db.cursor()
 """
 
 
-db.commit()
-db.close()
+
 
 #a = "  abc def  gh   "
 #print(" ".join(a.split()))
 
 data2 = json.load(open('other_features.json'))
-print(data2)
+#print(data2["Yer "])
+locations = data2["Yer "][1:]
+#print(locations)
+"""for location in locations:
+    c.execute("INSERT INTO cpp_location VALUES (NULL, ?)", [location])
+"""
+db.commit()
+db.close()
+"""
 for i,j in data2.items():
     print(i)
-    """if " ".join(i.split()) == "Yer":
+    if " ".join(i.split()) == "Yer":
         for k in j:
             print(k)
     if " ".join(i.split()) == "Yakit":
@@ -48,4 +55,5 @@ for i,j in data2.items():
             print(k)
     if " ".join(i.split()) == "Motor Hacmi":
         for k in j:
-            print(k)"""
+            print(k)
+"""

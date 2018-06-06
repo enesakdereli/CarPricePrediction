@@ -1,11 +1,4 @@
 {% extends 'common_prediction-tracking.html'%}
-{% block button-text %}
-Predict
-    {{ userpreferences.date_start }}
-{% for userpreference in userpreferences %}
-    <tr>{{ userpreference.user.user_id }}
-    <td>{{ userpreference.date_start}}</td>
-    <td>{{ userpreference.date_finish}}</td>
-    </tr>
-{% endfor %}
-{% endblock %}
+{% block title %}Car Price Prediction{% endblock %}
+{% block h2%}Car Price Prediction{% endblock %}
+{% block button %}<button class="myButton" type="submit">Predict</button>{% endblock %}
