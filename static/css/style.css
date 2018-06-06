@@ -1255,3 +1255,33 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+
+table {
+    border-collapse:separate;
+    border:solid #FF5126 2px;
+    border-radius:6px;
+    -moz-border-radius:6px;
+	
+}
+
+td, th {
+    border-left:solid #FF5126 1px;
+    border-top:solid #FF5126 1px;
+	color: #7f7f7f;
+}
+
+th {
+    border-top: none;
+}
+
+td:first-child, th:first-child {
+     border-left: none;
+
+}
+th, td {
+    padding-top: 5px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+}

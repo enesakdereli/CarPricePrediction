@@ -6,9 +6,6 @@ from django.forms import ModelForm, RadioSelect
 from django.core import serializers
 import inspect
 
-CAR_DETAIL_CHOICES = [(0, 'Unavailable'), (1, 'Available'), (2, 'Unimportant')]
-GEAR_CHOICES = [(0,'Manual'),(1, 'Automatic'),(2,'Semi-automatic')]
-FUEL_CHOICES = [(0,'Gasoline'),(1, 'Diesel'),(2,'Electricity'),(3,'Hybrid')]
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
@@ -17,18 +14,20 @@ class SignUpForm(UserCreationForm):
         fields = ('username', 'email', 'password1', 'password2', )
 
 class PricePredictionForm(ModelForm):
-    gear_type = forms.ChoiceField(choices=GEAR_CHOICES)
-    fuel_type = forms.ChoiceField(choices=FUEL_CHOICES)
+    """gear_type = forms.ChoiceField(choices=GEAR_CHOICES)
+    fuel_type = forms.ChoiceField(choices=FUEL_CHOICES)"""
     class Meta:
         model = CarProperties
-        fields=[f.name for f in model._meta.get_fields()][1:]#or [1:] ?
+        fields=[f.name for f in model._meta.get_fields()][1:]#all or [1:] ?
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         radio_fields = [f.name for f in CarProperties._meta.get_fields()][13:]
 
+        """
+        CAR_DETAIL_CHOICES = [(0, 'Unavailable'), (1, 'Available'), (2, 'Unimportant')]
         for field in radio_fields:
-            self.fields[field].widget = forms.RadioSelect(choices=CAR_DETAIL_CHOICES)
+            self.fields[field].widget = forms.RadioSelect(choices=CAR_DETAIL_CHOICES)"""
         self.fields['series'].queryset = Series.objects.none()
         self.fields['model'].queryset = Model.objects.none()
         if 'brand' in self.data:

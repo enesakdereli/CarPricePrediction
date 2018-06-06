@@ -1,99 +1,11 @@
-{% extends 'base.html' %}
-{% block title %}Car Price Prediction{% endblock %}
-{% block content %}
-    <h2>Car Price Prediction</h2>
-    {{ user.user_name }}
-    <form method="post" id="pricePredictionForm" data-load-url="{% url 'cpp:ajax_load_dropdown' %}" novalidate>
-        {% csrf_token %}
-        <div id="main-input">
-                    {% for field in form %}
-                        <!--{{ forloop.counter0 }}-->
-                        {% if forloop.counter0 < 3%}
-                            {{ field.label_tag }}
-                            {{ field }}
-                        {% elif forloop.counter0 == 3 %}
-                            <br>
-                            {{ field.label_tag }}
-                            {{ field }}
-                        {% elif forloop.counter0 > 3  and forloop.counter0 < 6 %}
-                            {{ field.label_tag }}
-                            {{ field }}
-                        {% elif forloop.counter0 == 6 %}
-                            <br>
-                            {{ field.label_tag }}
-                            {{ field }}
-                        {% elif forloop.counter0 > 6 and forloop.counter0 < 9 %}
-                            {{ field.label_tag }}
-                            {{ field }}
-                        {% elif forloop.counter0 == 9%}
-                            <br>
-                            {{ field.label_tag }}
-                            {{ field }}
-                        {% elif forloop.counter0 > 9 and forloop.counter0 < 12 %}
-                            {{ field.label_tag }}
-                            {{ field }}
-                    {% endif %}
-                    {% endfor %}
-        </div>
-        <button type="button" class="btn btn-show-details" data-id="">More Details</button>
-        <br>
-        <div hidden id="detail-input">
-            <ul>
-                {% for field in form %}
-                    {% if forloop.counter0 == 12%}
-                        <li>
-                            {{ field.label_tag }}
-                            {{ field }}
-                        </li>
-                    {% elif forloop.counter0 > 12%}
-                        <li>
-                            {{ field.label_tag }}
-                            {{ field }}
-                        </li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        </div>
-    <button type="submit">Predict</button>
-    <a href="{% url 'cpp:cpp_home' %}">Main Menu</a>
-    </form>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script>
-        $("#id_brand").change(function () {
-            var url = $("#pricePredictionForm").attr("data-load-url");
-            var brandId = $(this).val();
-            $.ajax({
-                url: url,
-                data: {
-                    'brand': brandId
-                },
-                success: function (data) {
-                    console.log(data);
-                    $("#id_series").html(data);
-                }
-            });
-        });
-
-        $("#id_series").change(function () {
-            var url = $("#pricePredictionForm").attr("data-load-url");
-            var seriesId = $(this).val();
-            $.ajax({
-                url: url,
-                data: {
-                    'series': seriesId
-                },
-                success: function (data) {
-                    console.log(data);
-                    $("#id_model").html(data);
-                }
-            });
-
-        });
-        $('.btn-show-details').click(function (e) {
-            var id = $(e.currentTarget).data('id');
-            console.log(id);
-            $('#detail-input').slideToggle(200);
-        });
-    </script>
-
+{% extends 'common_prediction-tracking.html'%}
+{% block button-text %}
+Predict
+    {{ userpreferences.date_start }}
+{% for userpreference in userpreferences %}
+    <tr>{{ userpreference.user.user_id }}
+    <td>{{ userpreference.date_start}}</td>
+    <td>{{ userpreference.date_finish}}</td>
+    </tr>
+{% endfor %}
 {% endblock %}

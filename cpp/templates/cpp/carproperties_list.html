@@ -6,7 +6,8 @@
     {{ user.user_name }}
   <form method="post" id="pricePredictionForm" data-load-url="{% url 'cpp:ajax_load_dropdown' %}" novalidate>
     {% csrf_token %}
-    <table>
+    <p> tablo seklinde</p>
+      <table>
       {{ form.as_table }}
     </table>
     <button type="submit">Predict</button>

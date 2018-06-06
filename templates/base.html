@@ -26,13 +26,13 @@
         <header id="fh5co-header" role="banner">
             <div class="container">
                 <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
-                <div id="fh5co-logo"><a href=""><img src="{% static 'images/logo.jpg' %}"
+                <div id="fh5co-logo"><a href={% url 'home' %}><img src="{% static 'images/logo.jpg' %}"
                                                      alt="Free HTML5 Website Template"></a></div>
                 <nav id="fh5co-main-nav" role="navigation">
                     <ul>
                         <li><a href={% url 'home' %}>Home</a></li>
                         <li><a href={% url 'cpp:predict_price' %}>Car Price Prediction</a></li>
-                        <li><a href={% url 'cpp:price_prediction_changelist' %}>Car Price Tracking</a></li>
+                        <li><a href={% url 'cpp:price_tracking_changelist' %}>Car Price Tracking</a></li>
                         <li><a href="">About</a></li>
                         {% if user.is_authenticated %}
                             <li class="cta"><a href="{% url 'logout' %}">Logout</a></li>

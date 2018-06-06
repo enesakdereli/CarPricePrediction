@@ -2,7 +2,7 @@ python manage.py runserver
 python manage.py makemigrations
 python manage.py migrate
 
-admin kullanici adi enessu sifre django2018cpp
+admin kullanici adi enes sifre django2018cpp
 DjangoIkinci\static\css\style.css içinde 1258. satir sonrasi disaridan eklendi.
 #centeredDiv {
   margin-right: auto; margin-left: auto; width: 800px;

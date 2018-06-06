@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+ <p>Price tracking list</p>
+<table>
+    <thead>
+          <tr>
+          <th>Market Percentage</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+          </tr>
+    </thead>
+    <tbody>
+    {% for userpreference in userpreferences %}
+        <tr>
+            <td>{{ userpreference.percentage }}</td>
+            <td>{{ userpreference.date_start }}</td>
+            <td>{{ userpreference.date_finish }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<br>
+<a href="{% url 'cpp:price_tracking_add' %}">Add Tracking</a>
+{% endblock %}

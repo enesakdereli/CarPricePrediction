@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Brand, CarProperties, Series, Model,User
+from .models import Brand, CarProperties, Series, Model, User, UserPreference
 from django.contrib.auth import authenticate, login
 from django.views.generic import View
 from django.contrib.auth.decorators import login_required
@@ -74,6 +74,25 @@ class PricePredictionUpdateView(UpdateView):
     form_class = PricePredictionForm
     success_url = reverse_lazy('cpp:price_prediction_changelist')
 
+class PriceTrackingListView(ListView):
+    model = UserPreference
+    queryset = UserPreference.objects.all()#example: .filter(percentage=10)
+    context_object_name = 'userpreferences'
+    template_name = 'cpp/pricetracking_list.html'
+    """def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['userpreference_list'] = UserPreference.objects.filter(percentage=10)
+        return context"""
+class PriceTrackingCreateView(CreateView):
+    model = UserPreference
+    form_class = PricePredictionForm
+    template_name = 'cpp/pricetracking_form.html'
+    success_url = reverse_lazy('cpp:price_tracking_changelist')
+
+class PriceTrackingUpdateView(UpdateView):
+    model = CarProperties
+    form_class = PricePredictionForm
+    success_url = reverse_lazy('cpp:price_tracking_changelist')
 
 class UserFormView(View):
     """

@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block title %}Car Price Prediction{% endblock %}
+{% block content %}
+    <h2>Car Price Prediction</h2>
+    {{ user.user_name }}
+    <form method="post" id="pricePredictionForm" data-load-url="{% url 'cpp:ajax_load_dropdown' %}" novalidate>
+        {% csrf_token %}
+        <div id="main-input">
+             <table>
+                <tbody>
+                    <tr>
+                    {% for field in form %}
+                        {% if forloop.counter < 13 %}
+                            <td>{{ field.label_tag }}</td>
+                            <td>{{ field }}</td>
+                            {% if forloop.counter|divisibleby:3 %}
+                                </tr>
+                                <tr>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button type="button" class="btn btn-show-details" data-id="">More Details</button>
+        <br>
+        <div hidden id="detail-input">
+            <table>
+                <tbody>
+                    <tr>
+                    {% for field in form %}
+                        {% if forloop.counter >= 13 %}
+                            <td>{{ field.label_tag }}</td>
+                            <td>{{ field }}</td>
+                            {% if forloop.counter|divisibleby:3 %}
+                                </tr>
+                                <tr>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    <button type="submit">
+    {% block button-text%}
+    {% endblock %}
+    </button>
+    <a href="{% url 'cpp:cpp_home' %}">Main Menu</a>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $("#id_brand").change(function () {
+            var url = $("#pricePredictionForm").attr("data-load-url");
+            var brandId = $(this).val();
+            $.ajax({
+                url: url,
+                data: {
+                    'brand': brandId
+                },
+                success: function (data) {
+                    console.log(data);
+                    $("#id_series").html(data);
+                }
+            });
+        });
+
+        $("#id_series").change(function () {
+            var url = $("#pricePredictionForm").attr("data-load-url");
+            var seriesId = $(this).val();
+            $.ajax({
+                url: url,
+                data: {
+                    'series': seriesId
+                },
+                success: function (data) {
+                    console.log(data);
+                    $("#id_model").html(data);
+                }
+            });
+
+        });
+        $('.btn-show-details').click(function (e) {
+            var id = $(e.currentTarget).data('id');
+            console.log(id);
+            $('#detail-input').slideToggle(200);
+        });
+    </script>
+
+{% endblock %}
