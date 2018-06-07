@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^index/$', core_views.index),
 
 
+
 ]

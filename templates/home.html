@@ -1,7 +1,26 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Car Price Prediction{% endblock %}
 {% block content %}
   <div id="centeredDiv">
-      <h2>Welcome, {{ user.username }}</h2>
+  {% if user.username %}
+        <h2 class="indent-home">Welcome, {{ user.username }}</h2>
+  {% else %}
+      <h2 class="indent-home">Welcome to Car Price Prediction</h2>
+  {% endif %}
   </div>
+    <div class="w3-content w3-display-container">
+      <a href="{% url 'cpp:predict_price' %}"> <img class="mySlides" src="{% static 'images/slideshow_1.jpg' %}" style="width:85%"></a>
+      <a href="{% url 'cpp:price_tracking_changelist' %}"><img class="mySlides" src="{% static 'images/slideshow_2.jpg' %}" style="width:85%"></a>
+
+  <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+  <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+</div>
+<br>
+
+<!-- The dots/circles -->
+<div style="text-align:center">
+  <span class="dot" onclick="plusDivs(1)"></span>
+  <span class="dot" onclick="plusDivs(1)"></span>
+</div>
 {% endblock %}

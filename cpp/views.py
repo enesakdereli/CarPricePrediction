@@ -10,7 +10,6 @@ from django.urls import reverse_lazy
 from sklearn.externals import joblib
 from django.views.generic.edit import DeleteView
 
-@login_required
 def home(request):
     return render(request, 'home.html')
 
@@ -18,6 +17,8 @@ def home(request):
 def cpp_home(request):
     return render(request, 'cpp/home.html')
 
+def about(request):
+    return render(request, 'cpp/about.html')
 
 def signup(request):
     if request.method == 'POST':
@@ -104,7 +105,6 @@ class PriceTrackingListView(ListView):
         user_id = self.request.user.id
         if user_id:
             result = CarProperty.objects.filter(user_id = user_id)
-            print(result)
         return result
 class PriceTrackingCreateView(CreateView):
     model = CarProperty

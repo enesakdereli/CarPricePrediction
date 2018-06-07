@@ -1346,9 +1346,37 @@ button.solid{
 .orangeOval:active {
 	position:relative;
 	top:1px;
-	
+}
+.orangeOval:visited{
+
 }
 button.btn-show-details{
 	background-color:#7f7f7f;
 	color:#ffffff;
 }
+.img-left{
+	position: absolute;
+	width: 500px;
+}
+.img-right{margin-left: 550px;}
+
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+.w3-display-left{position:absolute;top:50%;left:0%;transform:translate(0%,-50%);-ms-transform:translate(-0%,-50%)}
+.w3-display-right{position:absolute;top:50%;right:0%;transform:translate(0%,-50%);-ms-transform:translate(0%,-50%)}
+.w3-display-container:hover .w3-display-hover{display:block}.w3-display-container:hover span.w3-display-hover{display:inline-block}.w3-display-hover{display:none}
+.indent-home{text-indent:75px;}

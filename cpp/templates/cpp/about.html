@@ -1,0 +1,11 @@
+{%  extends 'base.html' %}
+{% load static %}
+{%  block title %}
+    About
+{% endblock %}
+{% block content %}
+    <h2>About the Website</h2>
+    <p class="img-left">We aim to make easier market search for people who sell or buy cars.<br> Our users can learn their car's market values
+    or they can track cars<br> which are uploaded to sahibinden.com according to their preferences.</p>
+    <img class="img-right" src="{% static 'images/car_price_icon.png' %}">
+{% endblock %}

@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 app_name = 'cpp'
 urlpatterns = [
     path('', views.cpp_home, name='cpp_home'),
+    path('about/', views.about, name='about'),
     path('predict/', views.PricePredictionCreateView.as_view(), name='predict_price'),
     path('ajax/load-dropdown/', views.load_dropdown, name='ajax_load_dropdown'),
     path('ajax/get-prediction/', views.get_prediction, name='ajax_get_prediction'),

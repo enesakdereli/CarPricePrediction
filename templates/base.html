@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/w3.css' %}">
+
     <script src="{% static 'js/modernizr-2.6.2.min.js' %}"></script>
 
 </head>
@@ -33,7 +35,7 @@
                         <li><a href={% url 'home' %}>Home</a></li>
                         <li><a href={% url 'cpp:predict_price' %}>Car Price Prediction</a></li>
                         <li><a href={% url 'cpp:price_tracking_changelist' %}>Car Price Tracking</a></li>
-                        <li><a href="">About</a></li>
+                        <li><a href={% url 'cpp:about' %}>About</a></li>
                         {% if user.is_authenticated %}
                             <li class="cta"><a href="{% url 'logout' %}">Logout</a></li>
                             <li>Account: {{ user.username }}</li>
@@ -58,34 +60,13 @@
                     <div class="col-md-4 col-sm-12">
                         <div class="fh5co-footer-widget">
                             <h3>About Us</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum fuga rerum doloremque
-                                dolore, molestias eligendi. Nulla aliquam aut doloribus tenetur repellendus omnis dicta,
-                                unde magni.</p>
+                            <p>We aim to make easier market search for people who sell or buy cars.
+                            Our users can learn their car's market values or they can track cars
+                            which are uploaded to sahibinden.com according to their preferences.</p>
                         </div>
                     </div>
-                    <div class="col-md-3 col-md-push-1 col-sm-12 col-sm-push-0">
-                        <div class="fh5co-footer-widget">
-                            <h3>Quick Links</h3>
-                            <ul class="fh5co-footer-link">
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">Free HTML5 Template</a></li>
-                                <li><a href="#">jQuery &amp; CSS3</a></li>
-                                <li><a href="#">Built with Sass</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-md-push-2 col-sm-12 col-sm-push-0">
 
-                        <div class="fh5co-footer-widget">
-                            <h3>Follow us</h3>
-                            <ul class="fh5co-social">
-                                <li class="facebook"><a href="#"><i class="icon-facebook2"></i></a></li>
-                                <li class="twitter"><a href="#"><i class="icon-twitter"></i></a></li>
-                                <li class="linkedin"><a href="#"><i class="icon-linkedin"></i></a></li>
-                                <li class="message"><a href="#"><i class="icon-mail"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
+
                 </div>
 
                 <div class="row">
@@ -112,7 +93,25 @@
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/owl.carousel.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
+<script>
+var slideIndex = 1;
+showDivs(slideIndex);
 
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  if (n > x.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";
+  }
+  x[slideIndex-1].style.display = "block";
+}
+</script>
 </body>
 </html>
 
