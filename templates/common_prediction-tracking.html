@@ -79,6 +79,21 @@
             });
 
         });
+        $("#id_model").change(function () {
+            var url = $("#pricePredictionForm").attr("data-load-url");
+            var modelId = $(this).val();
+            $.ajax({
+                url: url,
+                data: {
+                    'model': modelId
+                },
+                success: function (data) {
+                    console.log(data);
+                    $("#id_power").html(data);
+                }
+            });
+
+        });
         $('.btn-show-details').click(function (e) {
             var id = $(e.currentTarget).data('id');
             console.log(id);

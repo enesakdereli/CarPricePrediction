@@ -25,8 +25,11 @@ class Model(models.Model):
 
     def __str__(self):
         return self.model_name
-
-
+class Power(models.Model):
+    power = models.IntegerField(null=False)
+    model = models.ForeignKey(Model, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.power
 class Location(models.Model):
     city = models.CharField(max_length=200)
     def __str__(self):
@@ -153,7 +156,7 @@ class CarProperty(models.Model):
     FUEL_TYPE_CHOICES = [(0, 'Gasoline'), (1, 'Diesel'),(2, 'Gasoline and LPG'), (3, 'Electricity'), (4, 'Hybrid')]
     GEAR_TYPE_CHOICES = [(0, 'Manual'), (1, 'Automatic'), (2, 'Semi-automatic')]
     CASE_TYPE_CHOICES = [(0, 'Sedan'), (1, 'Hatchback 3 Doors'), (2, 'Hatchback 5 Doors'),(3, 'Crossover'),(4, 'Roadster'), (4, 'Coupe'), (5, 'Station Wagon'), (6, 'Cabrio'), (7, 'MPV')]
-    OWNER_TYPE_CHOICES = [(0, 'By Owner'), (1, 'By Gallery')]
+    OWNER_TYPE_CHOICES = [(0, 'By Owner'), (1, 'By Gallery'),(2,'By Authorized Dealer')]
     EXCHANGE_STATUS_CHOICES = [(0, 'Unavaliable'),(1,'Available')]
     COLOR_CHOICES = [(0, 'Black'), (1, 'Beige'),(2, 'Blue'), (3, 'Brown'), (4, 'Claret Red'), (5, 'Champagne'), (6, 'Gray'), (7, 'Green'), (8, 'Navy Blue'), (9, 'Orange'), (10, 'Pink'), (11, 'Purple'), (12, 'Red'), (13, 'Silver Gray'), (14, 'Smoke'), (15, 'Turquoise'), (16, 'White'), (17, 'Yellow')]
     REPAIR_STATUS_CHOICES = [(0, 'Undamaged'), (1, 'Damage Recorded'), (2, 'Heavy Damage Recorded')]
@@ -164,9 +167,9 @@ class CarProperty(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True)
     series = models.ForeignKey(Series, on_delete=models.SET_NULL, null=True)
     model = models.ForeignKey(Model, on_delete=models.SET_NULL, null=True)
+    power = models.ForeignKey(Power, on_delete=models.SET_NULL, null=True)
     location = models.ForeignKey(Location, on_delete=models.SET_NULL, null= True)
     year = models.IntegerField(null=False)
-    power = models.IntegerField(null=False)
     fuel_type = models.IntegerField(null=False, default=0, choices=FUEL_TYPE_CHOICES)
     gear_type = models.IntegerField(null=False, default=0, choices=GEAR_TYPE_CHOICES)
     case_type = models.IntegerField(null=False, default=0, choices=CASE_TYPE_CHOICES)

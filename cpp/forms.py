@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from .models import CarProperty, Brand, Model, Series, UserPreference
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from .models import CarProperty, Brand, Model, Series, Power, UserPreference
 from django.forms import ModelForm, RadioSelect, TextInput
 from django.core import serializers
 import inspect
@@ -30,6 +30,7 @@ class PricePredictionForm(ModelForm):
             self.fields[field].widget = forms.RadioSelect(choices=CAR_DETAIL_CHOICES)"""
         self.fields['series'].queryset = Series.objects.none()
         self.fields['model'].queryset = Model.objects.none()
+        self.fields['power'].queryset = Power.objects.none()
         if 'brand' in self.data:
             try:
                 brand_id = int(self.data.get('brand'))
@@ -47,15 +48,20 @@ class PricePredictionForm(ModelForm):
                 pass  # invalid input from the client; ignore and fallback to empty City queryset
         elif self.instance.pk:
             self.fields['model'].queryset = self.instance.series.model_set.order_by('model_name')
+        if 'model' in self.data:
+            try:
+                model_id = int(self.data.get('model'))
+                self.fields['power'].queryset = Power.objects.filter(model_id=model_id).order_by('power')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['power'].queryset = self.instance.model.model_set.order_by('model_name')
 class PriceTrackingForm(ModelForm):
     """gear_type = forms.ChoiceField(choices=GEAR_CHOICES)
     fuel_type = forms.ChoiceField(choices=FUEL_CHOICES)"""
     class Meta:
         model = CarProperty
         fields=[f.name for f in model._meta.get_fields()][3:]#all or [1:] ?
-        """widgets = {
-            'user': TextInput(attrs={'readonly': 'readonly'})
-        }"""
     def __init__(self, *args, **kwargs):#user
         super().__init__(*args, **kwargs)
         self.user = kwargs.pop('user', None)
@@ -87,3 +93,12 @@ class PriceTrackingForm(ModelForm):
                 pass  # invalid input from the client; ignore and fallback to empty City queryset
         elif self.instance.pk:
             self.fields['model'].queryset = self.instance.series.model_set.order_by('model_name')
+class UserForm(UserCreationForm):
+    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2', )
+        #exclude = ('password',)
+    def __init__(self, *args, **kwargs):  # user
+        super().__init__(*args, **kwargs)
+        self.user = kwargs.pop('user', None)

@@ -1,15 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Brand, CarProperty, Series, Model, User, UserPreference
+from .models import Brand, CarProperty, Series, Model, User, Power, UserPreference
 from django.contrib.auth import authenticate, login
 from django.views.generic import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from .forms import SignUpForm, PricePredictionForm, PriceTrackingForm
+from .forms import SignUpForm, PricePredictionForm, PriceTrackingForm, UserForm, UserChangeForm
 from django.views.generic import ListView, CreateView, UpdateView
 from django.urls import reverse_lazy
 from sklearn.externals import joblib
 from django.views.generic.edit import DeleteView
-
+from django import forms
 def home(request):
     return render(request, 'home.html')
 
@@ -80,13 +80,15 @@ def get_prediction(request):
 def load_dropdown(request):
     brand_id = request.GET.get('brand')
     series_id = request.GET.get('series')
+    model_id = request.GET.get('model')
     # user_id = request.GET.get('user').index()
     # user_id = request.user.id
     series = Series.objects.filter(brand_id=brand_id).order_by('series_name')
     models = Model.objects.filter(series_id=series_id).order_by('model_name')
+    powers = Power.objects.filter(model_id=model_id).order_by('power')
     # user = User.objects.filter(id=user_id)
 
-    return render(request, 'cpp/dropdown_list_options.html', {'series': series, 'models': models})
+    return render(request, 'cpp/dropdown_list_options.html', {'series': series, 'models': models, 'powers': powers})
 
 
 class PricePredictionListView(ListView):
