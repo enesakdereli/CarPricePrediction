@@ -158,7 +158,7 @@ class CarProperty(models.Model):
     COLOR_CHOICES = [(0, 'Black'), (1, 'Beige'),(2, 'Blue'), (3, 'Brown'), (4, 'Claret Red'), (5, 'Champagne'), (6, 'Gray'), (7, 'Green'), (8, 'Navy Blue'), (9, 'Orange'), (10, 'Pink'), (11, 'Purple'), (12, 'Red'), (13, 'Silver Gray'), (14, 'Smoke'), (15, 'Turquoise'), (16, 'White'), (17, 'Yellow')]
     REPAIR_STATUS_CHOICES = [(0, 'Undamaged'), (1, 'Damage Recorded'), (2, 'Heavy Damage Recorded')]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     #Main input fields
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True)

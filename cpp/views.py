@@ -35,16 +35,29 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 
 def add_tracking(request):
+    print("add_tracking")
+    print("request",request)
+    print("request.user",request.user)
+    instance = User.objects.filter(username=request.user).first()
     if request.method == 'POST':
-        form = PricePredictionForm(request.POST)
-        if __name__ == '__main__':
-            post = request.POST.copy()
-            post['user'] = request.user.id
+        print("request.method == POST")
+        form = PriceTrackingForm(request.POST, instance)#request.user,
+        #form.user = request.user
+        #print("form.cleaned_data",form.cleaned_data)
+        #print("request.user",request.user)
+        #print("request.POST[user]",request.POST.get("user",False))
+        #print(form.cleaned_data)
+        print("form.errors", form.errors)
         if form.is_valid():
-            form.save()
+            carproperty = form.save(commit=False)#commit=False
+            carproperty.user = request.user
+            carproperty.save()
+            print("isvalid")
             return redirect('cpp:price_tracking_changelist')
     else:
-        form = PricePredictionForm()
+        print("else")
+        print(request.user)
+        form = PriceTrackingForm()#request.user
     return render(request, 'cpp/pricetracking_form.html', {'form': form})
 
 def delete_tracking(request, carproperty_id):

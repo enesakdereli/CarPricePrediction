@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import CarProperty, Brand, Model, Series, UserPreference
-from django.forms import ModelForm, RadioSelect
+from django.forms import ModelForm, RadioSelect, TextInput
 from django.core import serializers
 import inspect
 
@@ -20,9 +20,9 @@ class PricePredictionForm(ModelForm):
         model = CarProperty
         fields=[f.name for f in model._meta.get_fields()][3:]#all or [3:] ?
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self,*args, **kwargs):
         super().__init__(*args, **kwargs)
-
+        #self.fields['user'] = User.objects.filter(username=user).first()
         """
         radio_fields = [f.name for f in CarProperty._meta.get_fields()][14:]
         CAR_DETAIL_CHOICES = [(0, 'Unavailable'), (1, 'Available'), (2, 'Unimportant')]
@@ -53,10 +53,16 @@ class PriceTrackingForm(ModelForm):
     class Meta:
         model = CarProperty
         fields=[f.name for f in model._meta.get_fields()][3:]#all or [1:] ?
-
-    def __init__(self, *args, **kwargs):
+        """widgets = {
+            'user': TextInput(attrs={'readonly': 'readonly'})
+        }"""
+    def __init__(self, *args, **kwargs):#user
         super().__init__(*args, **kwargs)
-
+        self.user = kwargs.pop('user', None)
+        print("self.user",self.user)
+        radio_fields = [f.name for f in CarProperty._meta.get_fields()][2:]
+        print(radio_fields)
+        #print("self.user.id",self.user.id)
         """
         radio_fields = [f.name for f in CarProperty._meta.get_fields()][14:]
         CAR_DETAIL_CHOICES = [(0, 'Unavailable'), (1, 'Available'), (2, 'Unimportant')]
